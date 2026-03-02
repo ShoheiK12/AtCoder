@@ -1,0 +1,15 @@
+# AtCoder Beginner Contest 447
+
+# A. Seats 2
+"""
+How to round up using //? -> rounding toward minus infinity
+-> In case 3 // 2 , the answer is 1 because when the fractional part of 1.5 is removed, the nearest integer value (1) is returned.
+In other words, when dealing with negative numbers, decreasing the number means increasing its absolute value. 
+-> Therefore, if we truncate the decimal part of -3/2 (which is -1.5), the result we get is -2.
+"""
+
+N, M = map(int, input().split())
+if M <= -(- N // 2):
+    print('Yes')
+else:
+    print('No')
