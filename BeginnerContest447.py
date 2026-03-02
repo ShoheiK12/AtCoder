@@ -7,6 +7,7 @@ How to round up using //? -> rounding toward minus infinity
 In other words, when dealing with negative numbers, decreasing the number means increasing its absolute value. 
 -> Therefore, if we truncate the decimal part of -3/2 (which is -1.5), the result we get is -2.
 """
+
 N, M = map(int, input().split())
 if M <= -(- N // 2):
     print('Yes')
@@ -22,6 +23,7 @@ else:
 5. If a character's frequency is the max, exclude it. Otherwise, keep the character.
 6. Concatenate all the kept characters in their original order. If the resulting string is empty, output " ".
 """
+
 sentence = input()
 # 1. Count the occurrences -> Make empty dict and then check one by one. If already exist, +1.
 word_count_dict = {}
