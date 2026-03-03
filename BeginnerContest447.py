@@ -48,3 +48,48 @@ if answer_sentence == "":
     print("")
 else:
     print(answer_sentence)
+
+# C. Insert and Erase A
+"""
+In this question, The only insertion and deletion of 'A's can be allowed,
+which means that any other characters other than A cannot be added, deleted, or rearranged.
+1. Consider the impossible conditions, which means when excluding A, new_S != new_T -> Completely not matched. 
+2. If the parts excluding 'A's match, then all we need to do is insert missing 'A's or delete extra 'A's. 
+Therefore, the number of operations required depends only on the difference in the count of 'A's between S and T.
+"""
+S = input()
+T = input()
+
+# Make new sentences without A
+new_S = S.replace("A", "")
+new_T = T.replace("A", "")
+# if new_s != new_t -> -1
+if new_S != new_T:
+    print("-1")
+else:
+    # Between S and T, how many A's can be used without modification?
+    # i, j: index
+    i = 0
+    j = 0
+    used_A = 0
+    # Look through S and T from left to right
+    while i < len(S) and j < len(T):
+        # if S[i] == T[j], keep going
+        if S[i] == T[j]:
+            if S[i] == "A":
+                used_A += 1
+            i += 1
+            j += 1
+        # If find A in S, skip -> This A should be deleted
+        elif S[i] == "A":
+            i += 1
+        # If find A in T, move forward on T side -> New A should be added
+        else:
+            j += 1
+    # Count how many A in S and T
+    aS = S.count("A")
+    aT = T.count("A")
+    # aS - used_A -> any A in S that were unusable need to be deleted.
+    # + (aT - used-A) -> the A in T that could not be repurposed from S must be inserted.
+    result = (aS - used_A) + (aT - used_A)
+    print(result)
