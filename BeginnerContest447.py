@@ -93,3 +93,37 @@ else:
     # + (aT - used-A) -> the A in T that could not be repurposed from S must be inserted.
     result = (aS - used_A) + (aT - used_A)
     print(result)
+
+# D. Take ABC 2
+"""
+How to solve?
+The order of deleting words must be A->B->C.
+A, B and C must be deleted in the same operation.
+=> How many ABC can be made?
+1. Look through sentence from left to right.
+2. If find A, a_count += 1. Then, go to find B.
+3. If find B, a_count -= 1 and b_count += 1. Then, go to find C.
+4. If find C, b_count -= 1 and answer += 1.
+* While-loop is not good in this case, because every time O(n) search and O(n) delete. (Total O(n^2))
+* When using for-loop, only O(n), because looking through sentence is only once.
+* a_count and b_count must be -1 later, because each A,B and C can be used only once when making ABC order. 
+"""
+S = input()
+
+a_count = 0
+b_count = 0
+answer = 0
+
+for char in S:
+    if char == "A":
+        a_count += 1
+    elif char == "B":
+        if a_count > 0:
+            a_count -= 1
+            b_count += 1
+    elif char == "C":
+        if b_count > 0:
+            b_count -= 1
+            answer += 1
+print(answer)
+
