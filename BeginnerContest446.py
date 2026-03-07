@@ -43,3 +43,64 @@ for i in range(N):
             break
 
     print(drink)
+
+# C. Omelette Restaurant
+"""
+How to Solve?
+1. Manage egg stock by FIFO.
+2. Use the oldest eggs first.
+3. If eggs still remain, calculate the egg stock
+4. Throw the eggs away if they are expired
+"""
+
+from collections import deque
+
+T = int(input())
+
+# Simulate test one by one
+for _ in range(T):
+    # N = open days, D = disposal day
+    N, D = map(int, input().split())
+    # A = How many eggs bought, B = How many eggs used
+    A = list(map(int, input().split()))
+    B = list(map(int, input().split()))
+
+    # Manage egg stock using deque() -> (purchase day, number of eggs)
+    stock = deque()
+
+    for day in range(N):
+
+        # How many eggs we buy
+        stock.append([day, A[day]])
+
+        # How many eggs we can use today
+        use = B[day]
+
+        while use > 0:
+            # stock[0] = the oldest egg
+            d, count = stock[0]
+
+            # If count <= use, use all eggs
+            if count <= use:
+                use -= count
+                # Delete the oldest stock
+                stock.popleft()
+            # Number of stock > number of eggs we want to use
+            else:
+                # stock[0][1] = number of eggs bought
+                # stock[0] = [0,7] (purchase day, number of eggs), we cannot calculate list.
+                # stock[0][1] -= use -> number of egg stock
+                stock[0][1] -= use
+                # use = 0 -> Today's egg demand has been met.
+                use = 0
+
+        # If we have still stock and "Today's Date" - "Purchase day" >= 0 -> Dispose of eggs
+        while stock and day - stock[0][0] >= D:
+            stock.popleft()
+
+    result = 0
+    # How many eggs remain
+    for d, count in stock:
+        result += count
+
+    print(result)
