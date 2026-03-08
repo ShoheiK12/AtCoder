@@ -25,6 +25,7 @@ else:
 """
 
 sentence = input()
+
 # 1. Count the occurrences -> Make empty dict and then check one by one. If already exist, +1.
 word_count_dict = {}
 for word in sentence:
